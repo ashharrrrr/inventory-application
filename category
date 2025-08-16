@@ -1,0 +1,32 @@
+import { getAllItemsDB, getAllCategoriesDB, getItemsByCategoryDB, getAllComapaniesDB, getItemsByCompanyDB } from "../db/queries.js"
+
+export async function getAllItems(req, res){
+    const items = await getAllItemsDB();
+    res.render("index", { items: items });
+}
+
+export async function getAllCategories(req, res){
+    const categories = await getAllCategoriesDB();
+    console.log("items", categories)
+    res.render("categories", { categories : categories });
+}
+
+export async function getItemsByCategory(req, res){
+    const categoryId = req.params.categoryId;
+    console.log(categoryId);
+    const items = await getItemsByCategoryDB(categoryId);
+    res.render("sortedBy", { items: items });
+}
+
+export async function getAllCompanies(req, res){
+    const companies = await getAllComapaniesDB();
+    console.log("items", companies)
+    res.render("companies", { companies: companies });
+}
+
+export async function getItemsByCompanies(req, res){
+    const companyId = req.params.companyId;
+    console.log(companyId);
+    const items = await getItemsByCompanyDB(companyId);
+    res.render("sortedBy", { items: items });
+}
