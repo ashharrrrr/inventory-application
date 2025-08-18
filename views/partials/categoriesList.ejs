@@ -1,5 +1,7 @@
 <div>
     <% categories.forEach((category) => { %>
-            <a href="/categories/category/<%= category.category_id %>"><%= category.category_name %>
-        <%})%>
+        <div>
+            <a href="/categories/category/<%= category.category_id %>"><%= category.category_name %></a>
+        </div>
+    <% }) %>
 </div>

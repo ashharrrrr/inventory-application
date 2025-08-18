@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Add Item</title>
+    </head>
+    <body>
+    <form action="/update/item/<%= item.item_id %>" method="POST">
+            <label for="itemName">Item Name: </label>
+            <input type="text" id="itemName" name="itemName" value="<%= item.item_name %>">
+            <label for="itemPrice">Unit Price: </label>
+            <input type="number" id="itemPrice" name="itemPrice" value="<%= item.unit_price %>">
+            <select name="company" id="company">
+                <% companies.forEach((company) => { %>
+                    <option value="<%= company.company_id %>" <%= item.company_id === company.company_id ? 'selected' : '' %>><%= company.company_name %></option>
+                <% }) %>
+            </select>
+            <select name="category" id="category">
+                <% categories.forEach((category) => { %>
+                    <option value="<%= category.category_id %>" <%= item.category_id === category.category_id ? 'selected' : '' %>><%= category.category_name %></option>
+                <% }) %>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>

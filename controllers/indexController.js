@@ -1,4 +1,4 @@
-import { getAllItemsDB, getAllCategoriesDB, getItemsByCategoryDB, getAllCompaniesDB, getItemsByCompanyDB, addNewCategoryDB, addNewCompanyDB, addItemDB } from "../db/queries.js"
+import { getAllItemsDB, getAllCategoriesDB, getItemsByCategoryDB, getAllCompaniesDB, getItemsByCompanyDB, addNewCategoryDB, addNewCompanyDB, addItemDB, getItemByIdDB, updateItemDB, getCategoryByIdDB, getCompanyByIdDB, getCategoryByIdFullDB, updateCategoryDB, getCompanyByIdFullDB, updateCompanyDB } from "../db/queries.js";
 
 export async function getAllItems(req, res){
     const items = await getAllItemsDB();
@@ -12,9 +12,9 @@ export async function getAllCategories(req, res){
 
 export async function getItemsByCategory(req, res){
     const categoryId = req.params.categoryId;
-    console.log(categoryId);
     const items = await getItemsByCategoryDB(categoryId);
-    res.render("sortedBy", { items: items });
+    const categoryName = await getCategoryByIdDB(categoryId);
+    res.render("sortedBy", { items: items, sortedByName: categoryName, sortedType: 'Category' });
 }
 
 export async function getAllCompanies(req, res){
@@ -24,9 +24,9 @@ export async function getAllCompanies(req, res){
 
 export async function getItemsByCompany(req, res){
     const companyId = req.params.companyId;
-    console.log(companyId);
     const items = await getItemsByCompanyDB(companyId);
-    res.render("sortedBy", { items: items });
+    const companyName = await getCompanyByIdDB(companyId);
+    res.render("sortedBy", { items: items, sortedByName: companyName, sortedType: 'Company' });
 }
 
 export async function addNewCategory(req, res){
@@ -51,4 +51,45 @@ export async function addItem(req, res){
     const { itemName, itemPrice, category, company } = req.body;
     addItemDB(itemName, itemPrice, category, company);
     res.redirect("/");
+}
+
+export async function getUpdateItemForm(req, res) {
+    const itemId = req.params.id;
+    const item = await getItemByIdDB(itemId);
+    const categories = await getAllCategoriesDB();
+    const companies = await getAllCompaniesDB();
+    res.render("updateItem", { item, categories, companies });
+}
+
+export async function postUpdateItemForm(req, res) {
+    const itemId = req.params.id;
+    const { itemName, itemPrice, category, company } = req.body;
+    await updateItemDB(itemId, itemName, itemPrice, category, company);
+    res.redirect("/");
+}
+
+export async function getUpdateCategoryForm(req, res) {
+    const categoryId = req.params.id;
+    const category = await getCategoryByIdFullDB(categoryId);
+    res.render("updateCategory", { category });
+}
+
+export async function postUpdateCategoryForm(req, res) {
+    const categoryId = req.params.id;
+    const { categoryName } = req.body;
+    await updateCategoryDB(categoryId, categoryName);
+    res.redirect("/categories");
+}
+
+export async function getUpdateCompanyForm(req, res) {
+    const companyId = req.params.id;
+    const company = await getCompanyByIdFullDB(companyId);
+    res.render("updateCompany", { company });
+}
+
+export async function postUpdateCompanyForm(req, res) {
+    const companyId = req.params.id;
+    const { companyName } = req.body;
+    await updateCompanyDB(companyId, companyName);
+    res.redirect("/companies");
 }

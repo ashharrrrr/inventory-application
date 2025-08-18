@@ -6,6 +6,16 @@
         <nav>
             <h1>Inventory Application</h1>
         </nav>
+        <% if (sortedByName) { %>
+            <h2>
+                Sorted by <%= sortedType %>: <%= sortedByName %>
+                <% if (sortedType === 'Category') { %>
+                    <a href="/update/category/<%= items[0]?.category_id %>"><button>Update</button></a>
+                <% } else if (sortedType === 'Company') { %>
+                    <a href="/update/company/<%= items[0]?.company_id %>"><button>Update</button></a>
+                <% } %>
+            </h2>
+        <% } %>
         <%- include("partials/itemsList", { items: items }) -%>
     </body>
 </html>

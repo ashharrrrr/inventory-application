@@ -1,5 +1,7 @@
 <div>
     <% companies.forEach((company) => { %>
-            <a href="/companies/<%= company.company_id %>"><%= company.company_name %>
-        <%})%>
+        <div>
+            <a href="/companies/<%= company.company_id %>"><%= company.company_name %></a>
+        </div>
+    <% }) %>
 </div>
