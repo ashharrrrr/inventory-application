@@ -3,6 +3,7 @@
         <title>Add Item</title>
     </head>
     <body>
+    <%- include("partials/errors.ejs") %>
         <form action="/item/add" method="POST">
             <label for="itemName">Item Name: </label>
             <input type="text" id="itemName" name="itemName">
@@ -10,15 +11,19 @@
             <input type="number" id="itemPrice" name="itemPrice">
             <select name="company" id="company">
                 <option value="">-- Select an option --</option>
-                <% companies.forEach((company) => {%>
-                    <option value="<%= company.company_id %>"><%= company.company_name %></option>
-                    <%})%>
+                <% companies.forEach((companyObj) => { %>
+                    <option value="<%= companyObj.company_id %>" >
+                    <%= companyObj.company_name %>
+                    </option>
+                <% }) %>
             </select>
             <select name="category" id="category">
                 <option value="">-- Select an option --</option>
-                <% categories.forEach((category) => {%>
-                    <option value="<%= category.category_id %>"><%= category.category_name %></option>
-                    <%})%>
+                <% categories.forEach((categoryObj) => { %>
+                    <option value="<%= categoryObj.category_id %>" >
+                    <%= categoryObj.category_name %>
+                    </option>
+                <% }) %>
             </select>
             <button type="submit">Submit</button>
         </form>

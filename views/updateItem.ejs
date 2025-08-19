@@ -3,7 +3,8 @@
         <title>Add Item</title>
     </head>
     <body>
-    <form action="/update/item/<%= item.item_id %>" method="POST">
+    <%- include("partials/errors.ejs") %>
+    <form action="/item/update/<%= item.item_id %>" method="POST">
             <label for="itemName">Item Name: </label>
             <input type="text" id="itemName" name="itemName" value="<%= item.item_name %>">
             <label for="itemPrice">Unit Price: </label>

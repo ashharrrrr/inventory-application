@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllItems, getAddItemForm, addItem, getUpdateItemForm, postUpdateItemForm, getUpdateCategoryForm, postUpdateCategoryForm, getUpdateCompanyForm, postUpdateCompanyForm } from "../controllers/indexController.js";
+import { getAllItems, getAddItemForm, postAddItemForm, getUpdateItemForm, postUpdateItemForm, deleteItem } from "../controllers/indexController.js";
 import categoriesRouter from "./categoriesRouter.js";
 import companiesRouter from "./companiesRouter.js";
 
@@ -11,15 +11,11 @@ indexRouter.use("/categories", categoriesRouter);
 indexRouter.use("/companies", companiesRouter);
 
 indexRouter.get("/item/add", getAddItemForm);
-indexRouter.post("/item/add", addItem);
+indexRouter.post("/item/add", postAddItemForm);
 
-indexRouter.get("/update/item/:id", getUpdateItemForm);
-indexRouter.post("/update/item/:id", postUpdateItemForm);
+indexRouter.get("/item/update/:id", getUpdateItemForm);
+indexRouter.post("/item/update/:id", postUpdateItemForm);
 
-indexRouter.get("/update/category/:id", getUpdateCategoryForm);
-indexRouter.post("/update/category/:id", postUpdateCategoryForm);
-
-indexRouter.get("/update/company/:id", getUpdateCompanyForm);
-indexRouter.post("/update/company/:id", postUpdateCompanyForm);
+indexRouter.post("/item/delete/:id", deleteItem);
 
 export default indexRouter;

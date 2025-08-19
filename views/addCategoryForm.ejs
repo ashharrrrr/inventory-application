@@ -3,9 +3,10 @@
         <title>Add Category</title>
     </head>
     <body>
+        <%- include('partials/errors.ejs') %>
         <form method="POST" action="/categories/new">
             <label for="categoryName"> Category </label>
-            <input type="text" id="categoryName" name="categoryName">
+            <input type="text" id="categoryName" name="categoryName" value="<%= typeof category !== 'undefined' ? category : '' %>">
             <button type="submit">Submit</button>
         </form>
     </body>

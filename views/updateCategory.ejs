@@ -3,7 +3,8 @@
         <title>Update Category</title>
     </head>
     <body>
-        <form action="/update/category/<%= category.category_id %>" method="POST">
+    <%- include('partials/errors.ejs') %>
+    <form action="/categories/update/<%= category.category_id %>" method="POST">
             <label for="categoryName">Category Name: </label>
             <input type="text" id="categoryName" name="categoryName" value="<%= category.category_name %>">
             <button type="submit">Update</button>

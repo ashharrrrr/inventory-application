@@ -18,5 +18,5 @@ app.use("/", indexRouter);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-    console.log(`SERVER LISTENING ON PORT ${PORT}`);
+    console.log(`Server runnong on PORT: ${PORT}`)
 });

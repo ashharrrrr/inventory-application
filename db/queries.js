@@ -75,3 +75,15 @@ export async function getCompanyByIdDB(companyId) {
     const { rows } = await pool.query("SELECT company_name FROM companies WHERE company_id = $1", [companyId]);
     return rows[0]?.company_name;
 }
+
+export async function deleteItemDB(itemId) {
+    await pool.query("DELETE FROM items WHERE item_id = $1", [itemId]);
+}
+
+export async function deleteCategoryDB(categoryId) {
+    await pool.query("DELETE FROM categories WHERE category_id = $1", [categoryId]);
+}
+
+export async function deleteCompanyDB(companyId) {
+    await pool.query("DELETE FROM companies WHERE company_id = $1", [companyId]);
+}

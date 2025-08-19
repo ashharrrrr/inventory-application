@@ -1,5 +1,8 @@
 <div>
     <h3><%= item.item_name %></h3>
     <p><%= item.unit_price%></p>
-    <a href="/update/item/<%= item.item_id %>"><button>Update</button></a>
+    <a href="/item/update/<%= item.item_id %>"><button>Update</button></a>
+    <form action="/item/delete/<%= item.item_id %>" method="POST" style="display:inline;">
+        <button type="submit">Delete</button>
+    </form>
 </div>

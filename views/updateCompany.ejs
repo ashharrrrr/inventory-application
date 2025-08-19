@@ -3,7 +3,8 @@
         <title>Update Company</title>
     </head>
     <body>
-        <form action="/update/company/<%= company.company_id %>" method="POST">
+    <%- include('partials/errors.ejs') %>
+    <form action="/companies/update/<%= company.company_id %>" method="POST">
             <label for="companyName">Company Name: </label>
             <input type="text" id="companyName" name="companyName" value="<%= company.company_name %>">
             <button type="submit">Update</button>

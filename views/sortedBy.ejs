@@ -10,9 +10,15 @@
             <h2>
                 Sorted by <%= sortedType %>: <%= sortedByName %>
                 <% if (sortedType === 'Category') { %>
-                    <a href="/update/category/<%= items[0]?.category_id %>"><button>Update</button></a>
+                    <a href="/categories/update/<%= sortedId %>"><button>Update</button></a>
+                    <form action="/categories/delete/<%= sortedId %>" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
                 <% } else if (sortedType === 'Company') { %>
-                    <a href="/update/company/<%= items[0]?.company_id %>"><button>Update</button></a>
+                    <a href="/companies/update/<%= sortedId %>"><button>Update</button></a>
+                    <form action="/companies/delete/<%= sortedId %>" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
                 <% } %>
             </h2>
         <% } %>

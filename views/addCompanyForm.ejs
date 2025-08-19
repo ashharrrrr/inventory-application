@@ -3,9 +3,10 @@
         <title>Add Company</title>
     </head>
     <body>
+        <%- include('partials/errors.ejs') %>
         <form method="POST" action="/companies/new">
             <label for="CompanyName"> Company </label>
-            <input type="text" id="companyName" name="companyName">
+            <input type="text" id="companyName" name="companyName" value="<%= typeof company !== 'undefined' ? company : '' %>">
             <button type="submit">Submit</button>
         </form>
     </body>
