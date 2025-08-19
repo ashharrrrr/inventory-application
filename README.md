@@ -1,7 +1,8 @@
 
+
 # Live Demo
 
-(Link will be added here once deployed)
+[demo link](https://inventory-application-2i5c.onrender.com/)
 
 # Inventory Application
 
