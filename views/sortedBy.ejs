@@ -6,6 +6,7 @@
         <nav>
             <h1>Inventory Application</h1>
         </nav>
+        <%- include('partials/errors.ejs') %>
         <% if (sortedByName) { %>
             <h2>
                 Sorted by <%= sortedType %>: <%= sortedByName %>

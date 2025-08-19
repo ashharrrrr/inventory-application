@@ -6,6 +6,7 @@
         <nav>
             <h1>Inventory Application</h1>
         </nav>
+        <%- include('partials/errors.ejs') %>
         <%- include("partials/categoriesList", { categories: categories }) -%>
         <a href="/categories/new">add category</a>
     </body>

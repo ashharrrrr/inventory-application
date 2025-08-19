@@ -39,60 +39,92 @@ const validateItem = [
 ];
 
 export async function getAllItems(req, res) {
-  const items = await getAllItemsDB();
-  res.render("index", { items: items });
+  try {
+    const items = await getAllItemsDB();
+    res.render("index", { items: items });
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to fetch items." }] });
+  }
 }
 
 export async function getAllCategories(req, res) {
-  const categories = await getAllCategoriesDB();
-  res.render("categories", { categories: categories });
+  try {
+    const categories = await getAllCategoriesDB();
+    res.render("categories", { categories: categories });
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to fetch categories." }] });
+  }
 }
 
 export async function getItemsByCategory(req, res) {
-  const categoryId = req.params.categoryId;
-  const items = await getItemsByCategoryDB(categoryId);
-  const categoryName = await getCategoryByIdDB(categoryId);
-  res.render("sortedBy", {
-    items: items,
-    sortedByName: categoryName,
-    sortedType: "Category",
-    sortedId: categoryId,
-  });
+  try {
+    const categoryId = req.params.categoryId;
+    const items = await getItemsByCategoryDB(categoryId);
+    const categoryName = await getCategoryByIdDB(categoryId);
+    res.render("sortedBy", {
+      items: items,
+      sortedByName: categoryName,
+      sortedType: "Category",
+      sortedId: categoryId,
+    });
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to fetch items for category." }] });
+  }
 }
 
 export async function getAllCompanies(req, res) {
-  const companies = await getAllCompaniesDB();
-  res.render("companies", { companies: companies });
+  try {
+    const companies = await getAllCompaniesDB();
+    res.render("companies", { companies: companies });
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to fetch companies." }] });
+  }
 }
 
 export async function getItemsByCompany(req, res) {
-  const companyId = req.params.companyId;
-  const items = await getItemsByCompanyDB(companyId);
-  const companyName = await getCompanyByIdDB(companyId);
-  res.render("sortedBy", {
-    items: items,
-    sortedByName: companyName,
-    sortedType: "Company",
-    sortedId: companyId,
-  });
+  try {
+    const companyId = req.params.companyId;
+    const items = await getItemsByCompanyDB(companyId);
+    const companyName = await getCompanyByIdDB(companyId);
+    res.render("sortedBy", {
+      items: items,
+      sortedByName: companyName,
+      sortedType: "Company",
+      sortedId: companyId,
+    });
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to fetch items for company." }] });
+  }
 }
 
 export async function addNewCategory(req, res) {
-  const category = req.body.categoryName;
-  await addNewCategoryDB(category);
-  res.redirect("/categories");
+  try {
+    const category = req.body.categoryName;
+    await addNewCategoryDB(category);
+    res.redirect("/categories");
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to add category." }] });
+  }
 }
 
 export async function addNewCompany(req, res) {
-  const company = req.body.companyName;
-  await addNewCompanyDB(company);
-  res.redirect("/companies");
+  try {
+    const company = req.body.companyName;
+    await addNewCompanyDB(company);
+    res.redirect("/companies");
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to add company." }] });
+  }
 }
 
 export async function getAddItemForm(req, res) {
-  const categories = await getAllCategoriesDB();
-  const companies = await getAllCompaniesDB();
-  res.render("addItem", { categories: categories, companies: companies });
+  try {
+    const categories = await getAllCategoriesDB();
+    const companies = await getAllCompaniesDB();
+    res.render("addItem", { categories: categories, companies: companies });
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to load add item form." }] });
+  }
 }
 
 export const postAddItemForm = [
@@ -120,15 +152,19 @@ export const postAddItemForm = [
 ];
 
 export async function getUpdateItemForm(req, res) {
-  const itemId = req.params.id;
-  const item = await getItemByIdDB(itemId);
-  const categories = await getAllCategoriesDB();
-  const companies = await getAllCompaniesDB();
-  res.render("updateItem", {
-    item: item,
-    categories: categories,
-    companies: companies,
-  });
+  try {
+    const itemId = req.params.id;
+    const item = await getItemByIdDB(itemId);
+    const categories = await getAllCategoriesDB();
+    const companies = await getAllCompaniesDB();
+    res.render("updateItem", {
+      item: item,
+      categories: categories,
+      companies: companies,
+    });
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to load update item form." }] });
+  }
 }
 
 export const postUpdateItemForm = [
@@ -158,35 +194,55 @@ export const postUpdateItemForm = [
 ];
 
 export async function getUpdateCategoryForm(req, res) {
-  const categoryId = req.params.id;
-  const category = await getCategoryByIdFullDB(categoryId);
-  res.render("updateCategory", { category });
+  try {
+    const categoryId = req.params.id;
+    const category = await getCategoryByIdFullDB(categoryId);
+    res.render("updateCategory", { category });
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to load update category form." }] });
+  }
 }
 
 
 export async function getUpdateCompanyForm(req, res) {
-  const companyId = req.params.id;
-  const company = await getCompanyByIdFullDB(companyId);
-  res.render("updateCompany", { company });
+  try {
+    const companyId = req.params.id;
+    const company = await getCompanyByIdFullDB(companyId);
+    res.render("updateCompany", { company });
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to load update company form." }] });
+  }
 }
 
 
 export async function deleteItem(req, res) {
-  const itemId = req.params.id;
-  await deleteItemDB(itemId);
-  res.redirect(req.get("Referer"));
+  try {
+    const itemId = req.params.id;
+    await deleteItemDB(itemId);
+    res.redirect(req.get("Referer"));
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to delete item." }] });
+  }
 }
 
 export async function deleteCategory(req, res) {
-  const categoryId = req.params.id;
-  await deleteCategoryDB(categoryId);
-  res.redirect("/categories");
+  try {
+    const categoryId = req.params.id;
+    await deleteCategoryDB(categoryId);
+    res.redirect("/categories");
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to delete category." }] });
+  }
 }
 
 export async function deleteCompany(req, res) {
-  const companyId = req.params.id;
-  await deleteCompanyDB(companyId);
-  res.redirect("/companies");
+  try {
+    const companyId = req.params.id;
+    await deleteCompanyDB(companyId);
+    res.redirect("/companies");
+  } catch (err) {
+    res.status(500).render("errors", { errors: [{ msg: "Failed to delete company." }] });
+  }
 }
 
 
@@ -211,65 +267,81 @@ const validateCompany = [
 export const postAddCategoryForm = [
   validateCategory,
   async (req, res) => {
-    const errors = validationResult(req);
-    const { categoryName } = req.body;
-    if (!errors.isEmpty()) {
-      return res.status(400).render("addCategoryForm", {
-        category: { category_name: categoryName },
-        errors: errors.array()
-      });
+    try {
+      const errors = validationResult(req);
+      const { categoryName } = req.body;
+      if (!errors.isEmpty()) {
+        return res.status(400).render("addCategoryForm", {
+          category: { category_name: categoryName },
+          errors: errors.array()
+        });
+      }
+      await addNewCategoryDB(categoryName);
+      res.redirect("/categories");
+    } catch (err) {
+      res.status(500).render("errors", { errors: [{ msg: "Failed to add category." }] });
     }
-    await addNewCategoryDB(categoryName);
-    res.redirect("/categories");
   }
 ];
 
 export const postAddCompanyForm = [
   validateCompany,
   async (req, res) => {
-    const errors = validationResult(req);
-    const { companyName } = req.body;
-    if (!errors.isEmpty()) {
-      return res.status(400).render("addCompanyForm", {
-        company: { company_name: companyName },
-        errors: errors.array()
-      });
+    try {
+      const errors = validationResult(req);
+      const { companyName } = req.body;
+      if (!errors.isEmpty()) {
+        return res.status(400).render("addCompanyForm", {
+          company: { company_name: companyName },
+          errors: errors.array()
+        });
+      }
+      await addNewCompanyDB(companyName);
+      res.redirect("/companies");
+    } catch (err) {
+      res.status(500).render("errors", { errors: [{ msg: "Failed to add company." }] });
     }
-    await addNewCompanyDB(companyName);
-    res.redirect("/companies");
   }
 ];
 
 export const postUpdateCategoryForm = [
   validateCategory,
   async (req, res) => {
-    const categoryId = req.params.id;
-    const { categoryName } = req.body;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).render("updateCategory", {
-        category: { category_id: categoryId, category_name: categoryName },
-        errors: errors.array()
-      });
+    try {
+      const categoryId = req.params.id;
+      const { categoryName } = req.body;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).render("updateCategory", {
+          category: { category_id: categoryId, category_name: categoryName },
+          errors: errors.array()
+        });
+      }
+      await updateCategoryDB(categoryId, categoryName);
+      res.redirect("/categories");
+    } catch (err) {
+      res.status(500).render("errors", { errors: [{ msg: "Failed to update category." }] });
     }
-    await updateCategoryDB(categoryId, categoryName);
-    res.redirect("/categories");
   }
 ];
 
 export const postUpdateCompanyForm = [
   validateCompany,
   async (req, res) => {
-    const companyId = req.params.id;
-    const { companyName } = req.body;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).render("updateCompany", {
-        company: { company_id: companyId, company_name: companyName },
-        errors: errors.array()
-      });
+    try {
+      const companyId = req.params.id;
+      const { companyName } = req.body;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).render("updateCompany", {
+          company: { company_id: companyId, company_name: companyName },
+          errors: errors.array()
+        });
+      }
+      await updateCompanyDB(companyId, companyName);
+      res.redirect("/companies");
+    } catch (err) {
+      res.status(500).render("errors", { errors: [{ msg: "Failed to update company." }] });
     }
-    await updateCompanyDB(companyId, companyName);
-    res.redirect("/companies");
   }
 ];
