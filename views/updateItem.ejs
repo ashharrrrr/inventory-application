@@ -1,9 +1,11 @@
 <html>
     <head>
         <title>Add Item</title>
+    <head>
+        <title>Update Item</title>
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/item.css">
     </head>
-    <body>
-    <%- include("partials/errors.ejs") %>
     <form action="/item/update/<%= item.item_id %>" method="POST">
             <label for="itemName">Item Name: </label>
             <input type="text" id="itemName" name="itemName" value="<%= item.item_name %>">

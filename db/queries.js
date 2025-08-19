@@ -11,7 +11,7 @@ export async function getAllCategoriesDB(){
 }
 
 export async function getItemsByCategoryDB(categoryId){
-    const { rows } = await pool.query("SELECT * FROM items WHERE items.category_id = $1", [categoryId]);
+    const { rows } = await pool.query("SELECT * FROM items WHERE items.category_id = $1 ORDER BY item_id", [categoryId]);
     return rows;
 }
 
@@ -21,7 +21,7 @@ export async function getAllCompaniesDB(){
 }
 
 export async function getItemsByCompanyDB(companyId){
-    const { rows } = await pool.query("SELECT * FROM items WHERE items.company_id = $1", [companyId]);
+    const { rows } = await pool.query("SELECT * FROM items WHERE items.company_id = $1 ORDER BY item_id", [companyId]);
     return rows;
 }
 

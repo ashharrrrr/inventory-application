@@ -1,13 +1,20 @@
 <html>
     <head>
         <title> Home </title>
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/category.css">
     </head>
     <body>
         <nav>
             <h1>Inventory Application</h1>
+            <div style="margin-top:1em;">
+                <a href="/" class="btn">Home</a>
+                <a href="/categories" class="btn">Categories</a>
+                <a href="/companies" class="btn">Companies</a>
+            </div>
         </nav>
         <%- include('partials/errors.ejs') %>
         <%- include("partials/categoriesList", { categories: categories }) -%>
-        <a href="/categories/new">add category</a>
+    <a href="/categories/new" class="btn">Add Category</a>
     </body>
 </html>
